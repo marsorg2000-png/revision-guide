@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQA GCSE History: Elizabethan England 1558–1603 Master Revision Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tab-active { border-bottom: 3px solid #d97706; color: #b45309; font-weight: 600; }
+        .tab-inactive { color: #64748b; }
+        .tab-inactive:hover { color: #1e293b; }
+        .subtab-active { background-color: #d97706; color: white; font-weight: 600; }
+        .subtab-inactive { background-color: #f1f5f9; color: #475569; }
+        .subtab-inactive:hover { background-color: #e2e8f0; color: #1e293b; }
+        .flashcard { perspective: 1000px; }
+        .flashcard-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { backface-visibility: hidden; }
+        .flashcard-back { transform: rotateY(180deg); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="bg-amber-600 text-xs font-semibold px-2.5 py-1 rounded uppercase tracking-wider">AQA GCSE History</span>
+                <h1 class="text-2xl font-bold mt-1">Elizabethan England 1558–1603: Master Revision Hub</h1>
+            </div>
+            <!-- Search Bar -->
+            <div class="relative w-full md:w-80">
+                <input type="text" id="searchInput" placeholder="Search topics, plots, keywords..." class="w-full bg-slate-800 text-sm text-white placeholder-slate-400 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-amber-500">
+                <span class="absolute right-3 top-2.5 text-slate-400 text-sm">🔍</span>
+            </div>
+        </div>
+        <!-- Mode Toggles -->
+        <div class="bg-slate-800 border-t border-slate-700">
+            <div class="max-w-7xl mx-auto px-4 flex justify-between items-center overflow-x-auto">
+                <div class="flex space-x-6 py-2 text-sm font-medium">
+                    <button onclick="switchView('textbook')" id="btnTextbook" class="tab-active py-1 px-2 whitespace-nowrap transition">📖 Structured Textbook</button>
+                    <button onclick="switchView('revision')" id="btnRevision" class="tab-inactive py-1 px-2 whitespace-nowrap transition">⚡ Exam Skills & Notes</button>
+                    <button onclick="switchView('glossary')" id="btnGlossary" class="tab-inactive py-1 px-2 whitespace-nowrap transition">📚 Full Glossary</button>
+                    <button onclick="switchView('timeline')" id="btnTimeline" class="tab-inactive py-1 px-2 whitespace-nowrap transition">📅 Master Timeline</button>
+                    <button onclick="switchView('flashcards')" id="btnFlashcards" class="tab-inactive py-1 px-2 whitespace-nowrap transition">🗂️ Interactive Flashcards</button>
+                    <button onclick="switchView('quiz')" id="btnQuiz" class="tab-inactive py-1 px-2 whitespace-nowrap transition">📝 GCSE Self-Test Quiz</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full space-y-8">
+
+        <!-- TEXTBOOK VIEW WITH CHAPTER SUB-TABS -->
+        <div id="viewTextbook" class="space-y-6">
+            <div class="bg-amber-50 border-l-4 border-amber-600 p-6 rounded-r-lg shadow-sm">
+                <h2 class="font-bold text-amber-900 text-xl">Complete Textbook & Factual Knowledge Base</h2>
+                <p class="text-amber-700 text-sm mt-1">Toggle through chapters below to explore government, religion, plots, society, poverty, exploration, and key figures.</p>
+            </div>
+
+            <!-- Chapter Sub-Navigation -->
+            <div class="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex flex-wrap gap-2">
+                <button onclick="switchChapter('government')" id="subBtnGovernment" class="subtab-active px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition">1. Government & Court</button>
+                <button onclick="switchChapter('religion')" id="subBtnReligion" class="subtab-inactive px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition">2. Religion & Plots</button>
+                <button onclick="switchChapter('maryarmada')" id="subBtnMaryarmada" class="subtab-inactive px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition">3. Mary Q of Scots & Armada</button>
+                <button onclick="switchChapter('society')" id="subBtnSociety" class="subtab-inactive px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition">4. Society & The Golden Age</button>
+                <button onclick="switchChapter('poverty')" id="subBtnPoverty" class="subtab-inactive px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition">5. Poverty & Exploration</button>
+            </div>
+
+            <!-- CHAPTER 1: GOVERNMENT & COURT -->
+            <div id="chapGovernment" class="chapter-content space-y-8">
+                <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6 searchable-item">
+                    <div class="border-b pb-4">
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">Chapter Breakdown</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Elizabeth's Government, Court & Early Life</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 text-xs">
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">👑 Early Life & Challenges</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Birth:</strong> Born 1533 to Henry VIII and Anne Boleyn; being a girl was seen as a disappointment. Mother executed for treason/witchcraft when Elizabeth was 2.</li>
+                                <li><strong>Education:</strong> Educated for court life rather than rule (learned French, Italian, Latin, Greek, music). Seen as a threat by Mary I during her reign. Sent to stay with Catherine Parr, strengthening Protestant views.</li>
+                                <li><strong>Accession (1558):</strong> Crowned Queen at 25 inheriting massive debts from Mary's wars, religious division, trade collapse, and a hostile France/Spain.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">🏛️ Structure of Government</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Monarch:</strong> Held supreme authority, declared war/peace, called/dissolved Parliament.</li>
+                                <li><strong>Privy Council:</strong> ~19 key advisors run daily government. Controlled by Secretary of State (William Cecil, then Francis Walsingham). Used "divide and rule", small size, and written records to maintain control.</li>
+                                <li><strong>Parliament:</strong> House of Lords (nobles/bishops) & House of Commons (gentry). Approved taxes and laws. Elizabeth controlled it via Royal Veto, managing agendas, and imprisoning outspoken MPs like Peter Wentworth.</li>
+                                <li><strong>Local Government:</strong> Justices of the Peace (JPs) maintained law/order locally; Lord Lieutenants raised local militias and collected taxes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- CHAPTER 2: RELIGION & PLOTS -->
+            <div id="chapReligion" class="chapter-content space-y-8 hidden">
+                <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6 searchable-item">
+                    <div class="border-b pb-4">
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">Chapter Breakdown</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mt-1">The Religious Settlement & Catholic Threats</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 text-xs">
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">⛪ Elizabethan Religious Settlement (1559)</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Act of Supremacy (1559):</strong> Made Elizabeth "Supreme Governor" of the Church of England (avoiding "Head" title to appease Catholics).</li>
+                                <li><strong>Act of Uniformity (1559):</strong> Made church attendance compulsory using the Book of Common Prayer; fines for recusants (Catholics refusing to attend).</li>
+                                <li><strong>Royal Injunctions (1559):</strong> 57 rules removing "superstitious" relics while keeping some traditional vestments.</li>
+                                <li><strong>Thirty-Nine Articles (1563):</strong> Defined moderate Protestant doctrine.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">⚔️ Catholic Plots & Rebellions</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Northern Rebellion (1569):</strong> Earls of Northumberland and Westmorland tried to depose Elizabeth and put Mary Queen of Scots on the throne; crushed, 450 rebels executed.</li>
+                                <li><strong>Papal Bull (Regnans in Excelsis, 1570):</strong> Pope excommunicated Elizabeth, absolving Catholics from allegiance and triggering harsher anti-Catholic laws.</li>
+                                <li><strong>Ridolfi Plot (1571):</strong> Italian banker plotted to marry Mary to the Duke of Norfolk and overthrow Elizabeth; discovered, Norfolk executed.</li>
+                                <li><strong>Throckmorton (1583) & Babington (1586) Plots:</strong> Assassination plots uncovered by Walsingham's spy network, leading directly to Mary's trial and execution.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- CHAPTER 3: MARY Q OF SCOTS & ARMADA -->
+            <div id="chapMaryarmada" class="chapter-content space-y-8 hidden">
+                <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6 searchable-item">
+                    <div class="border-b pb-4">
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">Chapter Breakdown</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Mary Queen of Scots & The Spanish Armada (1588)</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 text-xs">
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">👑 Mary, Queen of Scots</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li>Fled to England in 1568 after being overthrown by Scottish Protestant lords following husband Darnley's murder and marriage to Bothwell.</li>
+                                <li>Acted as the natural Catholic focal point for treasonous plots against Elizabeth.</li>
+                                <li>Tried after the Babington Plot and executed at Fotheringhay Castle in February 1587.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">🚢 The Spanish Armada (1588)</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Causes:</strong> Philip II's Catholic zeal, English piracy (Drake), support for Dutch Protestant rebels, and Mary's execution.</li>
+                                <li><strong>The Plan:</strong> 130 ships sailed to collect 30,000 troops from the Netherlands under Duke of Parma.</li>
+                                <li><strong>Why it Failed:</strong> English superior fire-ships broke formation at Calais; agile English galleons outmaneuvered Spanish ships; storms ("Protestant Wind") wrecked retreating ships around Scotland/Ireland.</li>
+                                <li><strong>Significance:</strong> Boosted English national confidence and cemented naval supremacy.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- CHAPTER 4: SOCIETY & THE GOLDEN AGE -->
+            <div id="chapSociety" class="chapter-content space-y-8 hidden">
+                <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6 searchable-item">
+                    <div class="border-b pb-4">
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">Chapter Breakdown</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Society, Culture & The Golden Age</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 text-xs">
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">🎭 Culture & The Golden Age</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Theatre:</strong> Boom in purpose-built theatres (The Red Lion 1567, The Globe 1599). William Shakespeare wrote ~40 plays. Banned inside London city walls due to plague and Puritan opposition, so built in Southwark.</li>
+                                <li><strong>Architecture & Gentry:</strong> Rise of the gentry who built magnificent stately homes (Hardwick Hall) displaying wealth. Nobility sidelined in favor of loyal gentry officials.</li>
+                                <li><strong>Propaganda & Cult of Gloriana:</strong> Portraits (globes, pearls) and poetry (Spenser's <em>The Faerie Queene</em>) projected Elizabeth as a divine, protective virgin queen.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">👥 Hierarchy & Daily Life</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Great Chain of Being:</strong> Strict hierarchical order from God down to peasants.</li>
+                                <li><strong>Marriage & Succession:</strong> Constant pressure on Elizabeth to marry to produce an heir and prevent civil war. She used marriage negotiations for diplomatic leverage while protecting her independence.</li>
+                                <li><strong>Essex Rebellion (1601):</strong> Robert Devereux, Earl of Essex, rebelled after losing monopoly and favor; quick 12-hour failure resulting in his execution.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- CHAPTER 5: POVERTY & EXPLORATION -->
+            <div id="chapPoverty" class="chapter-content space-y-8 hidden">
+                <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6 searchable-item">
+                    <div class="border-b pb-4">
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">Chapter Breakdown</span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Poverty, Elizabethan Poor Laws & Exploration</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 text-xs">
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">🍞 The Problem of Poverty</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Causes:</strong> Population rise (2.8m to 4m), inflation from Henry VIII's debased coinage, enclosure of land for sheep farming, collapse of wool trade, and bad harvests (1594–98).</li>
+                                <li><strong>Distinctions:</strong> Divided into "impotent poor" (deserving elderly/sick) and "able-bodied idle poor" (vagrants/beggars feared for social disorder).</li>
+                                <li><strong>Elizabethan Poor Law (1601):</strong> First national poor relief system. Taxed locals to build almshouses for the impotent poor, provided work materials for the able-bodied, and whipped/imprisoned persistent vagrants in Houses of Correction.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h4 class="font-bold text-slate-900 text-sm">🧭 Exploration & Trade</h4>
+                            <ul class="space-y-1.5 text-slate-700 list-disc list-inside">
+                                <li><strong>Explorers:</strong> Sir Francis Drake completed first circumnavigation (1577–80), raiding Spanish treasure ships; Walter Raleigh established Roanoke colony (1585); John Hawkins engaged in slave trade and naval ship design.</li>
+                                <li><strong>Motives:</strong> Escape Spanish trade monopolies, acquire New World silver/spices, advance navigation, and spread Protestantism.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- REVISION GUIDE VIEW -->
+        <div id="viewRevision" class="space-y-12 hidden">
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg shadow-sm">
+                <h2 class="font-bold text-amber-900 text-xl">Summary Revision Notes & Exam Skill Frameworks</h2>
+                <p class="text-amber-700 text-sm mt-1">Exact AQA GCSE exam question structures (Source Utility, Interpretation, and Essay) and rapid review checklists.</p>
+            </div>
+
+            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6 searchable-item">
+                <div class="border-b pb-4 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">GCSE Exam Technique</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-1">Mastering AQA Elizabethan England Exam Questions</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-1 rounded-full">Exam Frameworks</span>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-200 space-y-3">
+                        <h3 class="font-bold text-amber-900 text-base">📝 Q1: Source Utility (8 Marks)</h3>
+                        <p class="text-xs text-slate-700"><em>"How useful is Source A..."</em></p>
+                        <ul class="text-xs space-y-1.5 text-slate-700 list-disc list-inside">
+                            <li><strong>Para 1 (Content):</strong> Describe/quote source + make inference + contextual knowledge.</li>
+                            <li><strong>Para 2 (Provenance):</strong> WHO, WHEN, WHAT, WHY evaluation.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-200 space-y-3">
+                        <h3 class="font-bold text-amber-900 text-base">📝 Q2: Interpretations (8 Marks)</h3>
+                        <p class="text-xs text-slate-700"><em>"How convincing is Interpretation A about..."</em></p>
+                        <ul class="text-xs space-y-1.5 text-slate-700 list-disc list-inside">
+                            <li><strong>Analysis:</strong> Identify the main argument of the interpretation.</li>
+                            <li><strong>Support:</strong> Use specific historical details from the passage that are correct.</li>
+                            <li><strong>Challenge/Refine:</strong> Use counter-evidence or alternative aspects to show where it is less convincing.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-amber-50/50 p-5 rounded-xl border border-amber-200 space-y-3">
+                        <h3 class="font-bold text-amber-900 text-base">📝 Q3/Q4: Narrative / Essay (16 Marks)</h3>
+                        <p class="text-xs text-slate-700"><em>"Write an account of..." or "How far do you agree..."</em></p>
+                        <ul class="text-xs space-y-1.5 text-slate-700 list-disc list-inside">
+                            <li>Structure with chronological sequencing or balanced PEEL paragraphs addressing multiple factors and a clear conclusion.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- GLOSSARY VIEW -->
+        <div id="viewGlossary" class="space-y-8 hidden">
+            <div class="bg-indigo-50 border-l-4 border-indigo-600 p-6 rounded-r-lg shadow-sm">
+                <h2 class="font-bold text-indigo-900 text-xl">Full Historical Glossary & Key Terms</h2>
+                <p class="text-indigo-700 text-sm mt-1">Complete definitions of every essential Elizabethan history term.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 searchable-item">
+                <div class="grid md:grid-cols-2 gap-4 text-xs">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                        <span class="font-bold text-amber-700 text-sm">Armada</span>
+                        <p class="text-slate-600">A large fleet of warships sent by Spain in 1588 to invade England.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                        <span class="font-bold text-amber-700 text-sm">Excommunication</span>
+                        <p class="text-slate-600">Expulsion from the Catholic Church by the Pope, ordered against Elizabeth in 1570.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                        <span class="font-bold text-amber-700 text-sm">Gentry</span>
+                        <p class="text-slate-600">Landowners who grew in wealth and political influence during the Elizabethan era without holding noble titles.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                        <span class="font-bold text-amber-700 text-sm">Puritan</span>
+                        <p class="text-slate-600">An extreme Protestant who wanted to purify the Church of England of all Catholic elements.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                        <span class="font-bold text-amber-700 text-sm">Recusants</span>
+                        <p class="text-slate-600">Catholics who refused to attend compulsory Protestant church services.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                        <span class="font-bold text-amber-700 text-sm">Vagabond</span>
+                        <p class="text-slate-600">A homeless, unemployed person who travelled from place to place looking for work or begging.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MASTER TIMELINE VIEW -->
+        <div id="viewTimeline" class="space-y-8 hidden">
+            <div class="bg-indigo-50 border-l-4 border-indigo-600 p-6 rounded-r-lg shadow-sm">
+                <h2 class="font-bold text-indigo-900 text-xl">Full Master Timeline: Elizabethan England</h2>
+                <p class="text-indigo-700 text-sm mt-1">Chronological record of reigns, plots, rebellions, theatre milestones, and poor laws.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 searchable-item">
+                <div class="relative border-l-2 border-amber-500 ml-4 pl-6 space-y-8 text-xs md:text-sm">
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100"></span>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">1558</span>
+                        <h3 class="text-base font-bold text-slate-900">Elizabeth Crowned Queen</h3>
+                        <p class="text-slate-700 mt-1">Elizabeth I crowned Queen of England at age 25 inheriting massive debts and religious division.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100"></span>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">1569</span>
+                        <h3 class="text-base font-bold text-slate-900">The Northern Rebellion</h3>
+                        <p class="text-slate-700 mt-1">Catholic Earls of Northumberland and Westmorland rebel to replace Elizabeth with Mary Queen of Scots.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100"></span>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">1570</span>
+                        <h3 class="text-base font-bold text-slate-900">Papal Bull (Regnans in Excelsis)</h3>
+                        <p class="text-slate-700 mt-1">Pope issues Papal Bull excommunicating Elizabeth from the Catholic Church.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100"></span>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">1587</span>
+                        <h3 class="text-base font-bold text-slate-900">Execution of Mary, Queen of Scots</h3>
+                        <p class="text-slate-700 mt-1">Following the Babington Plot, Mary is tried and executed at Fotheringhay Castle.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100"></span>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">1588</span>
+                        <h3 class="text-base font-bold text-slate-900">Defeat of the Spanish Armada</h3>
+                        <p class="text-slate-700 mt-1">English navy and fire-ships defeat Philip II's Armada, cementing England's naval strength.</p>
+                    </div>
+                    <div class="relative">
+                        <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-amber-600 ring-4 ring-amber-100"></span>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">1601</span>
+                        <h3 class="text-base font-bold text-slate-900">Essex's Rebellion & Elizabethan Poor Law</h3>
+                        <p class="text-slate-700 mt-1">Earl of Essex launches failed 12-hour rebellion and is executed; national Elizabethan Poor Law introduced.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FLASHCARDS VIEW -->
+        <div id="viewFlashcards" class="hidden space-y-8">
+            <div class="bg-amber-50 border-l-4 border-amber-600 p-6 rounded-r-lg shadow-sm">
+                <h2 class="font-bold text-amber-900 text-xl">Interactive Revision Flashcards</h2>
+                <p class="text-amber-700 text-sm mt-1">Test your active recall. Click any card to flip between the question and the comprehensive historical answer.</p>
+            </div>
+
+            <div class="max-w-2xl mx-auto space-y-6">
+                <div class="flashcard w-full h-80 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-inner relative w-full h-full text-center rounded-2xl shadow-lg border border-slate-200 bg-white">
+                        <div class="flashcard-front absolute w-full h-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-amber-600 to-yellow-700 text-white rounded-2xl">
+                            <span class="text-xs uppercase tracking-widest bg-amber-500/50 px-3 py-1 rounded-full mb-4">Question 1</span>
+                            <h3 id="fcQuestion" class="text-xl font-semibold leading-relaxed">What was the Elizabethan Religious Settlement (1559)?</h3>
+                            <p class="text-xs text-amber-200 mt-8">(Click card to reveal answer)</p>
+                        </div>
+                        <div class="flashcard-back absolute w-full h-full flex flex-col items-center justify-center p-8 bg-slate-900 text-white rounded-2xl">
+                            <span class="text-xs uppercase tracking-widest bg-slate-800 text-amber-400 px-3 py-1 rounded-full mb-4">Detailed Answer</span>
+                            <p id="fcAnswer" class="text-sm text-slate-100 leading-relaxed">A compromise establishing a moderate Protestant Church of England consisting of the Act of Supremacy (making Elizabeth "Supreme Governor") and the Act of Uniformity (making attendance compulsory using the Book of Common Prayer).</p>
+                            <p class="text-xs text-slate-400 mt-8">(Click to flip back)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="prevFlashcard()" class="bg-white border border-slate-300 px-6 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 shadow-sm transition">← Previous Card</button>
+                    <span id="fcCounter" class="text-sm font-semibold text-slate-600">Card 1 of 5</span>
+                    <button onclick="nextFlashcard()" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2.5 rounded-xl text-sm font-semibold shadow-sm transition">Next Card →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUIZ VIEW -->
+        <div id="viewQuiz" class="hidden space-y-8">
+            <div class="bg-emerald-50 border-l-4 border-emerald-600 p-6 rounded-r-lg shadow-sm">
+                <h2 class="font-bold text-emerald-900 text-xl">GCSE Exam Self-Test Quiz</h2>
+                <p class="text-emerald-700 text-sm mt-1">Test your core knowledge with instant feedback and examiner-style explanations on key Elizabethan topics.</p>
+            </div>
+
+            <div id="quizContainer" class="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 space-y-6">
+                <div class="flex justify-between items-center border-b pb-4">
+                    <span id="quizProgress" class="text-xs font-bold text-emerald-600 uppercase tracking-widest">Question 1 of 5</span>
+                    <span id="quizScore" class="text-sm font-semibold text-slate-600">Score: 0</span>
+                </div>
+                <div id="quizContent" class="space-y-4"></div>
+                <div id="quizFeedback" class="hidden p-4 rounded-xl text-sm font-medium"></div>
+                <div class="flex justify-end">
+                    <button id="nextQuizBtn" onclick="nextQuizQuestion()" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-xl text-sm font-semibold shadow-sm transition">Next Question →</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 text-center py-8 mt-16 border-t border-slate-800 text-sm">
+        <p>AQA GCSE History Revision Hub — Elizabethan England 1558–1603</p>
+    </footer>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        function switchView(viewName) {
+            const views = ['textbook', 'revision', 'glossary', 'timeline', 'flashcards', 'quiz'];
+            views.forEach(v => {
+                const el = document.getElementById('view' + capitalize(v));
+                const btn = document.getElementById('btn' + capitalize(v));
+                if(el) el.classList.add('hidden');
+                if(btn) btn.className = 'tab-inactive py-1 px-2 whitespace-nowrap transition';
+            });
+            const activeEl = document.getElementById('view' + capitalize(viewName));
+            const activeBtn = document.getElementById('btn' + capitalize(viewName));
+            if(activeEl) activeEl.classList.remove('hidden');
+            if(activeBtn) activeBtn.className = 'tab-active py-1 px-2 whitespace-nowrap transition';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchChapter(chapterKey) {
+            const chapters = ['government', 'religion', 'maryarmada', 'society', 'poverty'];
+            chapters.forEach(c => {
+                const el = document.getElementById('chap' + capitalize(c));
+                const btn = document.getElementById('subBtn' + capitalize(c));
+                if(el) el.classList.add('hidden');
+                if(btn) btn.className = 'subtab-inactive px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition';
+            });
+            const activeEl = document.getElementById('chap' + capitalize(chapterKey));
+            const activeBtn = document.getElementById('subBtn' + capitalize(chapterKey));
+            if(activeEl) activeEl.classList.remove('hidden');
+            if(activeBtn) activeBtn.className = 'subtab-active px-4 py-2 rounded-lg text-xs md:text-sm font-semibold transition';
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Live Search Filter
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.searchable-item');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if(text.includes(term) || term === '') {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Flashcards Data
+        const flashcards = [
+            { 
+                q: "What was the Elizabethan Religious Settlement (1559)?", 
+                a: "A compromise establishing a moderate Protestant Church of England consisting of the Act of Supremacy (making Elizabeth 'Supreme Governor') and the Act of Uniformity (making attendance compulsory using the Book of Common Prayer)." 
+            },
+            { 
+                q: "What role did Sir Francis Walsingham play in Elizabeth's government?", 
+                a: "He served as Secretary of State and Master Spymaster, running a sophisticated network of informers across Europe that uncovered Catholic plots and secured Mary Queen of Scots' execution." 
+            },
+            { 
+                q: "Why did the Spanish Armada fail in 1588?", 
+                a: "Due to superior English tactical leadership (Drake and Howard), agile fire-ships breaking the Spanish formation at Calais, and severe storms ('Protestant Wind') wrecking retreating ships around Scotland and Ireland." 
+            },
+            { 
+                q: "What was the Elizabethan Poor Law of 1601?", 
+                a: "The first national poor relief system which taxed local parishes to build almshouses for the impotent poor, provide work materials for the able-bodied, and punish persistent vagrants in Houses of Correction." 
+            }
+        ];
+        let currentCardIndex = 0;
+
+        function updateFlashcard() {
+            const card = flashcards[currentCardIndex];
+            document.getElementById('fcQuestion').textContent = card.q;
+            document.getElementById('fcAnswer').textContent = card.a;
+            document.getElementById('fcCounter').textContent = `Card ${currentCardIndex + 1} of ${flashcards.length}`;
+            document.querySelector('.flashcard').classList.remove('flipped');
+        }
+
+        function nextFlashcard() {
+            currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+            updateFlashcard();
+        }
+
+        function prevFlashcard() {
+            currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
+            updateFlashcard();
+        }
+
+        // Quiz Data
+        const quizQuestions = [
+            {
+                question: "Which act made Elizabeth the 'Supreme Governor' of the Church of England in 1559?",
+                options: ["Act of Uniformity", "Act of Supremacy", "The Papal Bull", "Thirty-Nine Articles"],
+                answer: 1,
+                explanation: "The Act of Supremacy (1559) established the Church's independence from Rome and named Elizabeth Supreme Governor."
+            },
+            {
+                question: "Which Catholic plot in 1586 directly led to the trial and execution of Mary, Queen of Scots?",
+                options: ["Ridolfi Plot", "Throckmorton Plot", "Babington Plot", "Northern Rebellion"],
+                answer: 2,
+                explanation: "The Babington Plot involved coded letters proving Mary's conspiracy to assassinate Elizabeth, leading directly to her execution."
+            },
+            {
+                question: "Who was Elizabeth's spymaster and Secretary of State who uncovered Catholic plots?",
+                options: ["William Cecil", "Francis Walsingham", "Robert Dudley", "Earl of Essex"],
+                answer: 1,
+                explanation: "Sir Francis Walsingham directed an extensive spy network that intercepted letters and neutralized threats."
+            },
+            {
+                question: "What year was the Spanish Armada defeated by the English navy?",
+                options: "1570",
+                options: ["1570", "1588", "1601", "1569"],
+                answer: 1,
+                explanation: "The Spanish Armada was defeated in 1588 by English warships and fire-ships."
+            },
+            {
+                question: "What was established by the Elizabethan Poor Law of 1601?",
+                options: ["Compulsory church attendance", "A national system of poor relief funded by local parish taxes", "Free grammar schools across England", "The first standing royal army"],
+                answer: 1,
+                explanation: "The 1601 Poor Law established a structured national system of parish-based poor relief."
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        function loadQuizQuestion() {
+            answered = false;
+            const q = quizQuestions[currentQuizIndex];
+            document.getElementById('quizProgress').textContent = `Question ${currentQuizIndex + 1} of ${quizQuestions.length}`;
+            document.getElementById('quizScore').textContent = `Score: ${score}`;
+            document.getElementById('quizFeedback').classList.add('hidden');
+            document.getElementById('nextQuizBtn').classList.add('hidden');
+
+            let html = `<h3 class="text-lg font-bold text-slate-900 mb-4">${q.question}</h3><div class="space-y-3">`;
+            q.options.forEach((opt, idx) => {
+                html += `<button onclick="selectQuizAnswer(${idx})" id="opt-${idx}" class="w-full text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50 font-medium text-sm transition">${opt}</button>`;
+            });
+            html += `</div>`;
+            document.getElementById('quizContent').innerHTML = html;
+        }
+
+        function selectQuizAnswer(selectedIdx) {
+            if (answered) return;
+            answered = true;
+            const q = quizQuestions[currentQuizIndex];
+            const feedbackEl = document.getElementById('quizFeedback');
+            
+            for (let i = 0; i < q.options.length; i++) {
+                const btn = document.getElementById(`opt-${i}`);
+                if (i === q.answer) {
+                    btn.className = "w-full text-left p-4 rounded-xl border border-emerald-500 bg-emerald-50 text-emerald-900 font-medium text-sm";
+                } else if (i === selectedIdx) {
+                    btn.className = "w-full text-left p-4 rounded-xl border border-rose-500 bg-rose-50 text-rose-900 font-medium text-sm";
+                } else {
+                    btn.className = "w-full text-left p-4 rounded-xl border border-slate-200 opacity-50 text-sm";
+                }
+            }
+
+            if (selectedIdx === q.answer) {
+                score++;
+                feedbackEl.className = "p-4 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-800 border border-emerald-200";
+                feedbackEl.textContent = "Correct! " + q.explanation;
+            } else {
+                feedbackEl.className = "p-4 rounded-xl text-sm font-medium bg-rose-50 text-rose-800 border border-rose-200";
+                feedbackEl.textContent = "Incorrect. " + q.explanation;
+            }
+            feedbackEl.classList.remove('hidden');
+            document.getElementById('quizScore').textContent = `Score: ${score}`;
+            
+            if (currentQuizIndex < quizQuestions.length - 1) {
+                document.getElementById('nextQuizBtn').textContent = "Next Question →";
+                document.getElementById('nextQuizBtn').classList.remove('hidden');
+            } else {
+                document.getElementById('nextQuizBtn').textContent = "See Final Results 🎉";
+                document.getElementById('nextQuizBtn').classList.remove('hidden');
+            }
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex < quizQuestions.length) {
+                loadQuizQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quizContent').innerHTML = `
+                <div class="text-center py-10 space-y-4">
+                    <h3 class="text-2xl font-bold text-slate-900">Quiz Completed! 🎯</h3>
+                    <p class="text-lg text-slate-700">You scored <span class="font-bold text-amber-600">${score}</span> out of <span class="font-bold">${quizQuestions.length}</span></p>
+                    <button onclick="resetQuiz()" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-xl font-semibold text-sm shadow-sm transition">Try Again</button>
+                </div>
+            `;
+            document.getElementById('quizFeedback').classList.add('hidden');
+            document.getElementById('nextQuizBtn').classList.add('hidden');
+            document.getElementById('quizProgress').textContent = "Quiz Finished";
+        }
+
+        function resetQuiz() {
+            currentQuizIndex = 0;
+            score = 0;
+            loadQuizQuestion();
+        }
+
+        window.onload = function() {
+            loadQuizQuestion();
+            updateFlashcard();
+        };
+    </script>
+</body>
+</html>
